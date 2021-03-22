@@ -17,6 +17,6 @@ void readFile(string filename)
     while (getline(inputFile, line))
     {
         // process current line
-        processRecord(line);
+        processLine(line);
     }
 }

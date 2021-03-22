@@ -3,7 +3,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
+#include "Customer.hpp"
 using namespace std;
 
 #define ORD_NORMAL  'N'
@@ -15,11 +17,12 @@ using namespace std;
 
 /*----- function prototypes --------------------------------------------------*/
 
-void processRecord(string line);
-void processNewCustomer(string line);
-void processSalesOrder(string line);
-void processEndOfDay(string line);
-void extractDate(string line);
+void processLine(string);
+bool processRecord(string, vector<Customer *> &);
+void processNewCustomer(string, vector<Customer *> &);
+void processSalesOrder(string);
+void processEndOfDay(string);
+void extractDate(string);
 int validateDate(unsigned int, unsigned int, unsigned int);
 
 #endif

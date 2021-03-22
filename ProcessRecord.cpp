@@ -1,23 +1,29 @@
 #include "ProcessRecord.hpp"
 using namespace std;
 
-void processRecord(string line)
+void processLine(string line)
+{   
+    vector<Customer *> customers;
+
+    processRecord(line, customers);
+}
+
+bool processRecord(string line, vector<Customer *> &customers)
 {
     char recordType = line[0];
     if ( recordType == REC_END_OF_DAY )
     {
-        string date = line.substr(1);
-        extractDate(line);
+        extractDate(line); // checks date formatting and validation
         processEndOfDay(line);
+        return true;
     }
     else if ( recordType == REC_NEW_CUSTOMER )
     {
-        processNewCustomer(line);
+        processNewCustomer(line, customers);
     }
     else if ( recordType == REC_SALES_ORDER )
     {
-        string date = line.substr(1);
-        extractDate(line);
+        extractDate(line); // checks date formatting and validation
         processSalesOrder(line);
     }
     else
@@ -25,11 +31,15 @@ void processRecord(string line)
         cerr << "Invalid record format. Record: " << line << endl;
         exit(-3);
     }
+    return false;
 }
 
-void processNewCustomer(string line)
+void processNewCustomer(string line, vector<Customer *> &customers)
 {
-    cout << line << endl;
+    Customer *newCustomer = new Customer(line);
+    customers.push_back(newCustomer);
+    // fill up to four spaces with zero values
+    cout << "OP: customer " << setw(4) << setfill('0') << newCustomer->getCustomerNum() << " added" << endl;
 }
 
 void processSalesOrder(string line)
