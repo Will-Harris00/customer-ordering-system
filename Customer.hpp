@@ -10,6 +10,7 @@ using namespace std;
 
 class Customer
 {
+    protected: // access needed by derived invoice class
         unsigned int customerNum;
         unsigned int quantityOrdered;
         unsigned int date;
@@ -20,7 +21,6 @@ class Customer
         unsigned int getQuantityOrdered();
         void setDate(unsigned int);
         friend void addOrderQuantity(Customer&, SalesOrder*);
-        void sendOrder();
 };
 
 #endif

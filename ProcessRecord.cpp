@@ -73,7 +73,8 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
             if ( newOrder->getOrderType() == ORD_EXPRESS )
             {
                 orderType = "EXPRESS";
-                customer->sendOrder();
+                Invoice invoice = {*customer}; // create derived class from customer with associated data
+                invoice.sendOrder();
             }
             else
             {

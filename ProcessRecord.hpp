@@ -7,6 +7,7 @@
 
 #include "Customer.hpp"
 #include "SalesOrder.hpp"
+#include "Invoice.hpp"
 using namespace std;
 
 #define ORD_NORMAL  'N'
