@@ -61,27 +61,29 @@ void processEndOfDay(string endOfDayRecord, vector<Customer *> &customers)
     {
         if ( customer->getQuantityOrdered() > 0 )
         {
-            Invoice invoice = {*customer}; // create derived class from customer with associated data
-            invoice.sendOrder();
+            generateInvoice(customer);
         }
+        
     }
 }
 
 bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
 {
+    bool isExpress = false;
     for (Customer *customer : customers)
     {
         if ( newOrder->getCustomerNum() == customer->getCustomerNum() )
         {
             customer->setDate(newOrder->getOrderDate());
             // Increase quantity ordered for respective customer
-            addOrderQuantity(*customer, newOrder);
+            unsigned int newQuantity = newOrder->getOrderQuantity() + customer->getQuantityOrdered();
+            customer->setOrderQuantity(newQuantity); // increase customer order quantity according to new order
+
             string orderType;
             if ( newOrder->getOrderType() == ORD_EXPRESS )
             {
                 orderType = "EXPRESS";
-                Invoice invoice = {*customer}; // create derived class from customer with associated data
-                invoice.sendOrder();
+                isExpress = true;
             }
             else
             {
@@ -89,6 +91,9 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
             }
             cout << "OP: customer " << setw(4) << setfill('0') << newOrder->getCustomerNum() 
                  << ": " << orderType << " order: quantity " << newOrder->getOrderQuantity() << endl;
+            
+            if ( isExpress )
+                generateInvoice(customer);
             return true;
         }
     }

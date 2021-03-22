@@ -24,7 +24,7 @@ void Customer::setDate(unsigned int date)
     this->date = date;
 }
 
-void addOrderQuantity(Customer &customer, SalesOrder *order)
+void Customer::setOrderQuantity(unsigned int quantityOrdered)
 {
-    customer.quantityOrdered += order->getOrderQuantity();
+    this->quantityOrdered = quantityOrdered;
 }

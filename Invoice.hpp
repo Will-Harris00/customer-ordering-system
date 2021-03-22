@@ -10,7 +10,7 @@ class Invoice: public Customer
 {
         static unsigned int invoiceNum;
     public:
-        Invoice(const Customer &b): Customer(b) {}; // inherit customer class with associated data
+        Invoice(Customer &thisCustomer): Customer(thisCustomer) {}; // inherit customer class with associated data
         void sendOrder();
 };
 

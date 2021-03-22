@@ -12,5 +12,11 @@ void Invoice::sendOrder()
          << ": invoice " << invoiceNum++
          << ": date " << date
          << ": quantity " << quantityOrdered << endl;
-    this->quantityOrdered = 0; // reset customer order quantity
+}
+
+void generateInvoice(Customer *customer)
+{
+    Invoice invoice = {*customer}; // create derived class from customer with associated data
+    invoice.sendOrder();
+    customer->setOrderQuantity(0); // reset order quantity to zero
 }

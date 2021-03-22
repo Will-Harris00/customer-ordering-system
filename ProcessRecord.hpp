@@ -25,6 +25,7 @@ void processNewCustomer(string, vector<Customer *> &);
 void processSalesOrder(string, vector<Customer *> &);
 void processEndOfDay(string, vector<Customer *> &);
 bool addCustomerOrder(SalesOrder *, vector<Customer *> &);
+void generateInvoice(Customer *);
 void extractDate(string);
 int validateDate(unsigned int, unsigned int, unsigned int);
 
