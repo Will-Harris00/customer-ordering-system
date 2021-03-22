@@ -23,3 +23,8 @@ void Customer::setDate(unsigned int date)
 {
     this->date = date;
 }
+
+void addOrderQuantity(Customer &customer, SalesOrder *order)
+{
+    customer.quantityOrdered += order->getOrderQuantity();
+}

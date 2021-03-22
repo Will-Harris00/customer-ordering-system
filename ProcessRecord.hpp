@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Customer.hpp"
+#include "SalesOrder.hpp"
 using namespace std;
 
 #define ORD_NORMAL  'N'
@@ -20,8 +21,9 @@ using namespace std;
 void processLine(string);
 bool processRecord(string, vector<Customer *> &);
 void processNewCustomer(string, vector<Customer *> &);
-void processSalesOrder(string);
+void processSalesOrder(string, vector<Customer *> &);
 void processEndOfDay(string);
+bool addCustomerOrder(SalesOrder *, vector<Customer *> &);
 void extractDate(string);
 int validateDate(unsigned int, unsigned int, unsigned int);
 

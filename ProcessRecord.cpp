@@ -3,7 +3,7 @@ using namespace std;
 
 void processLine(string line)
 {   
-    vector<Customer *> customers;
+    static vector<Customer *> customers; // customers are stored for use outside the scope of this function
 
     processRecord(line, customers);
 }
@@ -24,7 +24,7 @@ bool processRecord(string line, vector<Customer *> &customers)
     else if ( recordType == REC_SALES_ORDER )
     {
         extractDate(line); // checks date formatting and validation
-        processSalesOrder(line);
+        processSalesOrder(line, customers);
     }
     else
     {
@@ -34,22 +34,56 @@ bool processRecord(string line, vector<Customer *> &customers)
     return false;
 }
 
-void processNewCustomer(string line, vector<Customer *> &customers)
+void processNewCustomer(string newCustomerRecord, vector<Customer *> &customers)
 {
-    Customer *newCustomer = new Customer(line);
+    Customer *newCustomer = new Customer(newCustomerRecord);
     customers.push_back(newCustomer);
     // fill up to four spaces with zero values
     cout << "OP: customer " << setw(4) << setfill('0') << newCustomer->getCustomerNum() << " added" << endl;
 }
 
-void processSalesOrder(string line)
+void processSalesOrder(string salesOrderRecord, vector<Customer *> &customers)
 {
-    cout << line << endl;
+    SalesOrder *newOrder = new SalesOrder(salesOrderRecord);
+    if ( !addCustomerOrder(newOrder, customers) )
+    {
+        cerr << "Order could not be processed. Record: " << salesOrderRecord << endl;
+        // exit(-4);
+    }
+
+    // free memory allocated to latest order
+    delete newOrder;
 }
 
-void processEndOfDay(string line)
+void processEndOfDay(string endOfDayRecord)
 {
-    cout << line << endl;
+    cout << endOfDayRecord << endl;
+}
+
+bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
+{
+    for (Customer *customer : customers)
+    {
+        if ( newOrder->getCustomerNum() == customer->getCustomerNum() )
+        {
+            customer->setDate(newOrder->getOrderDate());
+            // Increase quantity ordered for respective customer
+            addOrderQuantity(*customer, newOrder);
+            string orderType;
+            if ( newOrder->getOrderType() == ORD_EXPRESS )
+            {
+                orderType = "EXPRESS";
+            }
+            else
+            {
+                orderType = "normal";
+            }
+            cout << "OP: customer " << setw(4) << setfill('0') << newOrder->getCustomerNum() 
+                 << " " << orderType << " order: quantity " << newOrder->getOrderQuantity() << endl;
+            return true;
+        }
+    }
+    return false;
 }
 
 void extractDate(string line)
@@ -59,7 +93,7 @@ void extractDate(string line)
     unsigned int day = atoi(line.substr(7,2).c_str());   // starting index seven, length two
     
     if ( validateDate(year, month, day) )
-        exit(-4);
+        exit(-5);
 }
 
 int validateDate(unsigned int year, unsigned int month, unsigned int day)

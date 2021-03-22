@@ -5,6 +5,7 @@
 #include <string>
 #include <iomanip> // std::setfill, std::setw
 
+#include "SalesOrder.hpp"
 using namespace std;
 
 class Customer
@@ -18,6 +19,7 @@ class Customer
         unsigned int getCustomerNum();
         unsigned int getQuantityOrdered();
         void setDate(unsigned int);
+        friend void addOrderQuantity(Customer&, SalesOrder*);
 };
 
 #endif
