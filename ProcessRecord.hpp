@@ -20,10 +20,10 @@ using namespace std;
 /*----- function prototypes --------------------------------------------------*/
 
 void processLine(string);
-bool processRecord(string, vector<Customer *> &);
+void processRecord(string, vector<Customer *> &);
 void processNewCustomer(string, vector<Customer *> &);
 void processSalesOrder(string, vector<Customer *> &);
-void processEndOfDay(string);
+void processEndOfDay(string, vector<Customer *> &);
 bool addCustomerOrder(SalesOrder *, vector<Customer *> &);
 void extractDate(string);
 int validateDate(unsigned int, unsigned int, unsigned int);

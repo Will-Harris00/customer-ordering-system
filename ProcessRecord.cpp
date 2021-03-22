@@ -8,14 +8,13 @@ void processLine(string line)
     processRecord(line, customers);
 }
 
-bool processRecord(string line, vector<Customer *> &customers)
+void processRecord(string line, vector<Customer *> &customers)
 {
     char recordType = line[0];
     if ( recordType == REC_END_OF_DAY )
     {
         extractDate(line); // checks date formatting and validation
-        processEndOfDay(line);
-        return true;
+        processEndOfDay(line, customers);
     }
     else if ( recordType == REC_NEW_CUSTOMER )
     {
@@ -31,7 +30,6 @@ bool processRecord(string line, vector<Customer *> &customers)
         cerr << "Invalid record format. Record: " << line << endl;
         exit(-3);
     }
-    return false;
 }
 
 void processNewCustomer(string newCustomerRecord, vector<Customer *> &customers)
@@ -55,9 +53,18 @@ void processSalesOrder(string salesOrderRecord, vector<Customer *> &customers)
     delete newOrder;
 }
 
-void processEndOfDay(string endOfDayRecord)
+void processEndOfDay(string endOfDayRecord, vector<Customer *> &customers)
 {
-    cout << endOfDayRecord << endl;
+    string date = endOfDayRecord.substr(1);
+    cout << "OP: end of day " << date << endl;
+    for (Customer *customer : customers)
+    {
+        if ( customer->getQuantityOrdered() > 0 )
+        {
+            Invoice invoice = {*customer}; // create derived class from customer with associated data
+            invoice.sendOrder();
+        }
+    }
 }
 
 bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
@@ -102,58 +109,58 @@ int validateDate(unsigned int year, unsigned int month, unsigned int day)
 {
     switch (month)
     {    
-            case 1:
-            case 3:
-            case 5:
-            case 7:
-            case 8:
-            case 10:
-            case 12:
-                if ( day > 31 )
-                {
-                    cerr << "Invalid date - more than 31 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
-                    return 1;
-                }
-                else 
-                    return 0;
-                break;
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            if ( day > 31 )
+            {
+                cerr << "Invalid date - more than 31 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
+                return 1;
+            }
+            else 
+                return 0;
+            break;
 
-            case 4:
-            case 6:
-            case 9:
-            case 11:
-                if (day > 30)
-                {
-                    cerr << "Invalid date - more than 30 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
-                    return 1;
-                }
-                else 
-                    return 0;
-                break;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            if (day > 30)
+            {
+                cerr << "Invalid date - more than 30 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
+                return 1;
+            }
+            else 
+                return 0;
+            break;
 
-            case 2:
-                if (year % 4 == 0) // leap year
+        case 2:
+            if (year % 4 == 0) // leap year
+            {
+                if (day > 29)
                 {
-                    if (day > 29)
-                    {
-                        cerr << "Invalid date - February has more than 29 days '" << day << "' in a leap year '" << year << "'. Date: " << year << month << day << endl;
-                        return 1;
-                    }
-                    else
-                        return 0;
+                    cerr << "Invalid date - February has more than 29 days '" << day << "' in a leap year '" << year << "'. Date: " << year << month << day << endl;
+                    return 1;
                 }
                 else
-                    if (day > 28)
-                    {
-                        cerr << "Invalid date - February has more than 28 days '" << day << "' in a non-leap year '" << year << "'. Date: " << year << month << day << endl;
-                        return 1;
-                    }
-                    else
-                        return 0;
-                break;
+                    return 0;
+            }
+            else
+                if (day > 28)
+                {
+                    cerr << "Invalid date - February has more than 28 days '" << day << "' in a non-leap year '" << year << "'. Date: " << year << month << day << endl;
+                    return 1;
+                }
+                else
+                    return 0;
+            break;
 
-            default:
-                cerr << "Invalid month - month '" << month << "' does not exist. Date: " << year << month << day << endl;
-                return 1;
+        default:
+            cerr << "Invalid month - month '" << month << "' does not exist. Date: " << year << month << day << endl;
+            return 1;
     }
 }
