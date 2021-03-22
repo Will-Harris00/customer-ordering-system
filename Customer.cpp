@@ -28,3 +28,14 @@ void addOrderQuantity(Customer &customer, SalesOrder *order)
 {
     customer.quantityOrdered += order->getOrderQuantity();
 }
+
+void Customer::sendOrder()
+{
+    cout << "OP: customer " << setw(4) << setfill('0') << customerNum
+         << ": shipped quantity " << quantityOrdered << endl;
+
+    cout << "SC: customer " << setw(4) << setfill('0') << customerNum
+         << ": date " << date
+         << ": quantity " << quantityOrdered << endl;
+    this->quantityOrdered = 0; // reset customer order quantity
+}

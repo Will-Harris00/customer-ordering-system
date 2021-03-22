@@ -20,6 +20,7 @@ class Customer
         unsigned int getQuantityOrdered();
         void setDate(unsigned int);
         friend void addOrderQuantity(Customer&, SalesOrder*);
+        void sendOrder();
 };
 
 #endif

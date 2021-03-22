@@ -47,8 +47,8 @@ void processSalesOrder(string salesOrderRecord, vector<Customer *> &customers)
     SalesOrder *newOrder = new SalesOrder(salesOrderRecord);
     if ( !addCustomerOrder(newOrder, customers) )
     {
-        cerr << "Order could not be processed. Record: " << salesOrderRecord << endl;
-        // exit(-4);
+        cerr << "Sales order could not be processed. Record: " << salesOrderRecord << endl;
+        exit(-4);
     }
 
     // free memory allocated to latest order
@@ -73,13 +73,14 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
             if ( newOrder->getOrderType() == ORD_EXPRESS )
             {
                 orderType = "EXPRESS";
+                customer->sendOrder();
             }
             else
             {
                 orderType = "normal";
             }
             cout << "OP: customer " << setw(4) << setfill('0') << newOrder->getCustomerNum() 
-                 << " " << orderType << " order: quantity " << newOrder->getOrderQuantity() << endl;
+                 << ": " << orderType << " order: quantity " << newOrder->getOrderQuantity() << endl;
             return true;
         }
     }
