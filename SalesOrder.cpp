@@ -2,17 +2,12 @@
 
 using namespace std;
 
-SalesOrder::SalesOrder(string orderRecord)
+SalesOrder::SalesOrder(string salesOrderRecord)
 {
-    if ( orderRecord.length() != 17 ) // check length of string
-    {
-        cerr << "Sales order formatting is incorrect. Record: " << orderRecord << endl;
-        exit(-6);
-    }
-    this->customerNum = atoi((orderRecord.substr(10,4)).c_str());   // starting index ten, length four
-    this->orderQuantity = atoi((orderRecord.substr(14,3)).c_str()); // starting index fourteen, length three
-    this->orderDate = atoi((orderRecord.substr(1,8)).c_str());      // starting index one, length eight
-    this->orderType = orderRecord[9];
+    this->customerNum = atoi((salesOrderRecord.substr(10,4)).c_str());   // starting index ten, length four
+    this->orderQuantity = atoi((salesOrderRecord.substr(14,3)).c_str()); // starting index fourteen, length three
+    this->orderDate = atoi((salesOrderRecord.substr(1,8)).c_str());      // starting index one, length eight
+    this->orderType = salesOrderRecord[9];
 }
 
 unsigned int SalesOrder::getCustomerNum()
