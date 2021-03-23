@@ -19,4 +19,8 @@ class SalesOrder
         char getOrderType();
 };
 
+/*----- function prototypes --------------------------------------------------*/
+
+bool containsOnlyNum(string);
+
 #endif

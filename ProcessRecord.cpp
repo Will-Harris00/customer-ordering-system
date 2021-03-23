@@ -73,15 +73,13 @@ void processEndOfDay(string endOfDayRecord, vector<Customer *> &customers)
         exit(-7);
     }
 
-    string date = endOfDayRecord.substr(1);
-    cout << "OP: end of day " << date << endl;
+    cout << "OP: end of day " << endOfDayRecord.substr(1) << endl; // end of day date stamp
     for (Customer *customer : customers)
     {
         if ( customer->getQuantityOrdered() > 0 )
         {
             generateInvoice(customer);
         }
-        
     }
 }
 
@@ -93,7 +91,7 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
         if ( newOrder->getCustomerNum() == customer->getCustomerNum() )
         {
             customer->setDate(newOrder->getOrderDate());
-            // Increase quantity ordered for respective customer
+
             unsigned int newQuantity = newOrder->getOrderQuantity() + customer->getQuantityOrdered();
             customer->setOrderQuantity(newQuantity); // increase customer order quantity according to new order
 
