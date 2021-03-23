@@ -1,0 +1,8 @@
+g++ -std=c++11 -c ordering.cpp -I./ -o ordering.o
+g++ -std=c++11 -c Customer.cpp -I./ -o Customer.o
+g++ -std=c++11 -c SalesOrder.cpp -I./ -o SalesOrder.o
+g++ -std=c++11 -c ReadFile.cpp -I./ -o ReadFile.o
+g++ -std=c++11 -c ProcessRecord.cpp -I./ -o ProcessRecord.o
+g++ -std=c++11 -c Invoice.cpp -I./ -o Invoice.o
+g++ -std=c++11 -c Validation.cpp -I./ -o Validation.o
+g++ ordering.o Customer.o SalesOrder.o ReadFile.o ProcessRecord.o Invoice.o Validation.o -o ordering
