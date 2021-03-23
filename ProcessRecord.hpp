@@ -6,8 +6,6 @@
 #include <vector>
 
 #include "Customer.hpp"
-#include "SalesOrder.hpp"
-#include "Invoice.hpp"
 using namespace std;
 
 #define ORD_NORMAL  'N'
@@ -26,7 +24,5 @@ void processSalesOrder(string, vector<Customer *> &);
 void processEndOfDay(string, vector<Customer *> &);
 bool addCustomerOrder(SalesOrder *, vector<Customer *> &);
 void generateInvoice(Customer *);
-void extractDate(string);
-int validateDate(unsigned int, unsigned int, unsigned int);
 
 #endif

@@ -86,10 +86,12 @@ void processEndOfDay(string endOfDayRecord, vector<Customer *> &customers)
 bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
 {
     bool isExpress = false;
+    bool existsCustomer = false;
     for (Customer *customer : customers)
     {
         if ( newOrder->getCustomerNum() == customer->getCustomerNum() )
         {
+            existsCustomer = true;
             customer->setDate(newOrder->getOrderDate());
 
             unsigned int newQuantity = newOrder->getOrderQuantity() + customer->getQuantityOrdered();
@@ -108,7 +110,7 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
             else
             {
                 cerr << "Order type identifier '" << newOrder->getOrderType() << "' is invalid." << endl;
-                exit(-8);
+                return false;
             }
             cout << "OP: customer " << setw(4) << setfill('0') << newOrder->getCustomerNum() 
                  << ": " << orderType << " order: quantity " << newOrder->getOrderQuantity() << endl;
@@ -118,75 +120,8 @@ bool addCustomerOrder(SalesOrder *newOrder, vector<Customer *> &customers)
             return true;
         }
     }
+
+    if ( !existsCustomer ) // false if order does not belong to existing customer
+        cerr << "Customer number '" << newOrder->getCustomerNum() << "'" << " does not exist." << endl;
     return false;
-}
-
-void extractDate(string line)
-{
-    unsigned int year = atoi(line.substr(1,4).c_str());  // starting index one, length four
-    unsigned int month = atoi(line.substr(5,2).c_str()); // starting index five, length two
-    unsigned int day = atoi(line.substr(7,2).c_str());   // starting index seven, length two
-    
-    if ( validateDate(year, month, day) )
-        exit(-9);
-}
-
-int validateDate(unsigned int year, unsigned int month, unsigned int day)
-{
-    switch (month)
-    {    
-        case 1:
-        case 3:
-        case 5:
-        case 7:
-        case 8:
-        case 10:
-        case 12:
-            if ( day > 31 )
-            {
-                cerr << "Invalid date - more than 31 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
-                return 1;
-            }
-            else 
-                return 0;
-            break;
-
-        case 4:
-        case 6:
-        case 9:
-        case 11:
-            if (day > 30)
-            {
-                cerr << "Invalid date - more than 30 days '" << day << "' in month '" << month << "'. Date: " << year << month << day << endl;
-                return 1;
-            }
-            else 
-                return 0;
-            break;
-
-        case 2:
-            if (year % 4 == 0) // leap year
-            {
-                if (day > 29)
-                {
-                    cerr << "Invalid date - February has more than 29 days '" << day << "' in a leap year '" << year << "'. Date: " << year << month << day << endl;
-                    return 1;
-                }
-                else
-                    return 0;
-            }
-            else
-                if (day > 28)
-                {
-                    cerr << "Invalid date - February has more than 28 days '" << day << "' in a non-leap year '" << year << "'. Date: " << year << month << day << endl;
-                    return 1;
-                }
-                else
-                    return 0;
-            break;
-
-        default:
-            cerr << "Invalid month - month '" << month << "' does not exist. Date: " << year << month << day << endl;
-            return 1;
-    }
 }

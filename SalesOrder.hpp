@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+
+#include "Validation.hpp"
 using namespace std;
 
 class SalesOrder
@@ -18,9 +20,5 @@ class SalesOrder
         unsigned int getOrderDate();
         char getOrderType();
 };
-
-/*----- function prototypes --------------------------------------------------*/
-
-bool containsOnlyNum(string);
 
 #endif

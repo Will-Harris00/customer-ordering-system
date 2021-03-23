@@ -21,7 +21,6 @@ class Customer
         unsigned int getQuantityOrdered();
         void setDate(unsigned int);
         void setOrderQuantity(unsigned int);
-        friend void addOrderQuantity(Customer&, SalesOrder*);
 };
 
 #endif

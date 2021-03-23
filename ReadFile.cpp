@@ -1,7 +1,6 @@
 #include "ReadFile.hpp"
 using namespace std;
 
-
 void readFile(string filename)
 {
     ifstream inputFile(filename);
