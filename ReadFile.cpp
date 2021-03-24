@@ -18,4 +18,6 @@ void readFile(string filename)
         // process current line
         processLine(line);
     }
+
+    inputFile.close();
 }

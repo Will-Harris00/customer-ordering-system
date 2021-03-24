@@ -5,10 +5,7 @@ void processLine(string line)
 {   
     static vector<Customer *> customers; // customers are stored for use outside the scope of this function
 
-    processRecord(line, customers);
-
-    for (Customer *customer : customers) // free memory allocated to customer objects
-        delete customer;
+    processRecord(line, customers);    
 }
 
 void processRecord(string line, vector<Customer *> &customers)
@@ -37,7 +34,7 @@ void processRecord(string line, vector<Customer *> &customers)
 
 void processNewCustomer(string newCustomerRecord, vector<Customer *> &customers)
 {
-    if ( newCustomerRecord.length() > 47 ) // check length of new customer record matches specification
+    if ( newCustomerRecord.length() > 45 ) // check length of new customer record matches specification
     {
         cerr << "New customer formatting is incorrect. Record: " << newCustomerRecord << endl;
         exit(-4);
