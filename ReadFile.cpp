@@ -1,7 +1,7 @@
 #include "ReadFile.hpp"
 using namespace std;
 
-void readFile(string filename)
+void readFile(string filename, vector<Customer *> customers)
 {
     ifstream inputFile(filename);
     // exit the program if input stream not created.
@@ -16,7 +16,7 @@ void readFile(string filename)
     while (getline(inputFile, line))
     {
         // process current line
-        processLine(line);
+        processRecord(line, customers);
     }
 
     inputFile.close();

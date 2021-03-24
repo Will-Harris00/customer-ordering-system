@@ -1,13 +1,6 @@
 #include "ProcessRecord.hpp"
 using namespace std;
 
-void processLine(string line)
-{   
-    static vector<Customer *> customers; // customers are stored for use outside the scope of this function
-
-    processRecord(line, customers);    
-}
-
 void processRecord(string line, vector<Customer *> &customers)
 {
     char recordType = line[0];
@@ -42,6 +35,7 @@ void processNewCustomer(string newCustomerRecord, vector<Customer *> &customers)
 
     Customer *newCustomer = new Customer(newCustomerRecord);
     customers.push_back(newCustomer);
+
     // fill up to four spaces with zero values
     cout << "OP: customer " << setw(4) << setfill('0') << newCustomer->getCustomerNum() << " added" << endl;
 }

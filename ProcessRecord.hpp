@@ -17,7 +17,6 @@ using namespace std;
 
 /*----- function prototypes --------------------------------------------------*/
 
-void processLine(string);
 void processRecord(string, vector<Customer *> &);
 void processNewCustomer(string, vector<Customer *> &);
 void processSalesOrder(string, vector<Customer *> &);

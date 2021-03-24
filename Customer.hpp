@@ -17,7 +17,7 @@ class Customer
         string customerName;
     public:
         Customer(string);
-        virtual ~Customer(){}; // derived classs requires virtual destructor
+        virtual ~Customer() {}; // derived classs requires virtual destructor
         unsigned int getCustomerNum();
         unsigned int getQuantityOrdered();
         void setDate(unsigned int);

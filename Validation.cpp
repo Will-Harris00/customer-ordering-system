@@ -7,16 +7,13 @@ bool containsOnlyNum(string salesOrderRecord)
     int posNonInt = (salesOrderRecord.substr(10)).find_first_not_of( "0123456789" ); // position of first non-integer character
     if ( posNonInt == string::npos ) // tail contains integer values only
         return true;
+
     else if ( 0 <= posNonInt && posNonInt <= 3 ) // customer number is invalid
-    {
         cerr << "Invalid customer identifier '" << salesOrderRecord << "'" << endl;
-        return false;
-    }
     else if ( 4 <= posNonInt && posNonInt <= 6 ) // order quantity is invalid
-    {
         cerr << "Invalid order quantity '" << salesOrderRecord << "'" << endl;
-        return false;
-    }
+
+    return false;
 }
 
 void extractDate(string line)

@@ -10,6 +10,6 @@ using namespace std;
 
 /*----- function prototypes --------------------------------------------------*/
 
-void readFile(string);
+void readFile(string, vector<Customer *>);
 
 #endif

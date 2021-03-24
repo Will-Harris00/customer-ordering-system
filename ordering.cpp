@@ -14,7 +14,12 @@ int main (int argc, char **argv)
 
     string filename = argv[1];
 
-    readFile(filename);
+    vector<Customer *> customers; // vectors of customer objects
+
+    readFile(filename, customers);
+
+    for (Customer *customer : customers)
+        delete customer;
 
     return 0;
 }

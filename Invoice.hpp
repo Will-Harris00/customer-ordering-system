@@ -11,6 +11,7 @@ class Invoice: public Customer
         static unsigned int invoiceNum;
     public:
         Invoice(Customer &thisCustomer): Customer(thisCustomer) {}; // inherit customer class with associated data
+        ~Invoice() {};
         void sendOrder();
 };
 
