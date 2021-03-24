@@ -8,7 +8,7 @@ void readFile(string filename, vector<Customer *> customers)
     if (!inputFile)
     {
         cerr << "File not openable." << endl;
-        exit(-2);
+        exit(EXIT_FAILURE);
     }
 
     // temp variable for storing current line in file

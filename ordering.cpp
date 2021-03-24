@@ -9,7 +9,7 @@ int main (int argc, char **argv)
     if ( argc != 2 )
     {
         cerr << "Invalid number of arguments - Two parameters are required to run the program." << endl;
-        exit(-1);
+        exit(EXIT_FAILURE);
     }
 
     string filename = argv[1];
@@ -18,8 +18,7 @@ int main (int argc, char **argv)
 
     readFile(filename, customers);
 
-    for (Customer *customer : customers)
-        delete customer;
+    // vectors do not require explicit memory management hence freeing allocated memory is done automatically
 
-    return 0;
+    exit(EXIT_SUCCESS);
 }

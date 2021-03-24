@@ -4,7 +4,7 @@ using namespace std;
 SalesOrder::SalesOrder(string salesOrderRecord)
 {
     if ( !containsOnlyNum(salesOrderRecord) )
-        exit(-9);
+        exit(EXIT_FAILURE);
 
     this->customerNum = atoi((salesOrderRecord.substr(10,4)).c_str());   // starting index ten, length four
     this->orderQuantity = atoi((salesOrderRecord.substr(14,3)).c_str()); // starting index fourteen, length three

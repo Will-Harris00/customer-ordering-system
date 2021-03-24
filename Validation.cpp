@@ -23,7 +23,7 @@ void extractDate(string line)
     unsigned int day = atoi(line.substr(7,2).c_str());   // starting index seven, length two
     
     if ( validateDate(year, month, day) )
-        exit(-8);
+        exit(EXIT_FAILURE);
 }
 
 int validateDate(unsigned int year, unsigned int month, unsigned int day)

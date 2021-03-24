@@ -4,7 +4,7 @@ using namespace std;
 Customer::Customer(string newCustomerRecord)
 {
     this->customerNum = atoi((newCustomerRecord.substr(1,4)).c_str()); // starting index one, length four
-    this->customerName = newCustomerRecord.substr(5, 39);              // starting index five, length 39
+    this->customerName = newCustomerRecord.substr(5,39);              // starting index five, length 39
     this->quantityOrdered = 0;
     this->date = 0;
 }

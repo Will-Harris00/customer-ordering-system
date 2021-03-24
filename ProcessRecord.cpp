@@ -21,7 +21,7 @@ void processRecord(string line, vector<Customer *> &customers)
     else
     {
         cerr << "Invalid record format. Record: " << line << endl;
-        exit(-3);
+        exit(EXIT_FAILURE);
     }
 }
 
@@ -30,7 +30,7 @@ void processNewCustomer(string newCustomerRecord, vector<Customer *> &customers)
     if ( newCustomerRecord.length() > 45 ) // check length of new customer record matches specification
     {
         cerr << "New customer formatting is incorrect. Record: " << newCustomerRecord << endl;
-        exit(-4);
+        exit(EXIT_FAILURE);
     }
 
     Customer *newCustomer = new Customer(newCustomerRecord);
@@ -45,14 +45,14 @@ void processSalesOrder(string salesOrderRecord, vector<Customer *> &customers)
     if ( salesOrderRecord.length() != 17 ) // check length of sales order record matches specification
     {
         cerr << "Sales order formatting is incorrect. Record: " << salesOrderRecord << endl;
-        exit(-5);
+        exit(EXIT_FAILURE);
     }
 
     SalesOrder *newOrder = new SalesOrder(salesOrderRecord);
     if ( !addCustomerOrder(newOrder, customers) )
     {
         cerr << "Sales order could not be processed. Record: " << salesOrderRecord << endl;
-        exit(-6);
+        exit(EXIT_FAILURE);
     }
 
     // free memory allocated to latest order
@@ -64,7 +64,7 @@ void processEndOfDay(string endOfDayRecord, vector<Customer *> &customers)
     if ( endOfDayRecord.length() != 9 ) // check length of end of day record matches specification
     {
         cerr << "End of day formatting is incorrect. Record: " << endOfDayRecord << endl;
-        exit(-7);
+        exit(EXIT_FAILURE);
     }
 
     cout << "OP: end of day " << endOfDayRecord.substr(1) << endl; // end of day date stamp
