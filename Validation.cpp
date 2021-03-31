@@ -18,9 +18,9 @@ bool containsOnlyNum(string salesOrderRecord)
 
 void extractDate(string line)
 {
-    unsigned int year = atoi(line.substr(1,4).c_str());  // starting index one, length four
-    unsigned int month = atoi(line.substr(5,2).c_str()); // starting index five, length two
-    unsigned int day = atoi(line.substr(7,2).c_str());   // starting index seven, length two
+    unsigned int year = stoi(line.substr(1,4));  // starting index one, length four
+    unsigned int month = stoi(line.substr(5,2)); // starting index five, length two
+    unsigned int day = stoi(line.substr(7,2));   // starting index seven, length two
     
     if ( validateDate(year, month, day) )
         exit(EXIT_FAILURE);

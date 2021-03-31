@@ -6,9 +6,9 @@ SalesOrder::SalesOrder(string salesOrderRecord)
     if ( !containsOnlyNum(salesOrderRecord) )
         exit(EXIT_FAILURE);
 
-    this->customerNum = atoi((salesOrderRecord.substr(10,4)).c_str());   // starting index ten, length four
-    this->orderQuantity = atoi((salesOrderRecord.substr(14,3)).c_str()); // starting index fourteen, length three
-    this->orderDate = atoi((salesOrderRecord.substr(1,8)).c_str());      // starting index one, length eight
+    this->customerNum = stoi((salesOrderRecord.substr(10,4)));   // starting index ten, length four
+    this->orderQuantity = stoi((salesOrderRecord.substr(14,3))); // starting index fourteen, length three
+    this->orderDate = stoi((salesOrderRecord.substr(1,8)));      // starting index one, length eight
     this->orderType = salesOrderRecord[9];
 }
 
